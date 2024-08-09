@@ -4,13 +4,16 @@ interface CardReceptProps {
   children: ReactNode;
   userName: string;
   initialCountClient: number;
+  promedio:Float32Array;
 }
 
 export function CardRecept({
   children,
   userName,
   initialCountClient,
+  promedio,
 }: CardReceptProps) {
+
   return (
     <>
       <img
@@ -20,9 +23,12 @@ export function CardRecept({
       />
       <div className="tw-followCard-info">
         <strong>{children}</strong>
-        <span className="tw-followCard-infoUserName">
+        {initialCountClient!==undefined && <span className="tw-followCard-infoUserName">
           Clientes atendidos: {initialCountClient}
-        </span>
+        </span>}
+        {promedio!==undefined && <span className="tw-followCard-infoUserName">
+          Promedio: {promedio}
+        </span>}
       </div>
     </>
   );

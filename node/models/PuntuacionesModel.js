@@ -25,6 +25,10 @@ const PuntuacionesModel = db.define("puntuaciones", {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    presentacion: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     conocimiento_menu: {
         type: DataTypes.INTEGER,
         allowNull: false,

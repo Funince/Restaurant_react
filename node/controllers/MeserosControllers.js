@@ -41,27 +41,38 @@ export const getMesero = async (req, res) => {
 
 export const createMesero = async (req, res) => {
   const { nombres, apellidos, DNI } = req.body;
+  
   try {
+    
     const mesero = await MerseroModel.create({
       nombres,
       apellidos,
       DNI,
     });
     if (mesero) {
+      
       res.status(201).json({
         mesero
       });
     } else {
+      
       res.json({
         message: "No se pudo crear el registro",
       });
     }
   } catch (error) {
-    res.json({
+    if (error.name === 'SequelizeUniqueConstraintError') {
+    res.status(400).json({
+      message: " Ya existe un mesero con el mismo DNI",
+      error: error.message,
+    });
+  } else {
+    res.status(400).json({
       message: "Error al crear el registro",
       error: error.message,
     });
   }
+}
 };
 
 // Actualizar un registro
@@ -76,10 +87,6 @@ export const updateMesero = async (req, res) => {
     );
 
     if (mesero) {
-      mesero.nombres = nombres;
-      mesero.apellidos = apellidos;
-      mesero.DNI = DNI;
-      await mesero.save();
       res.json({
         "message": "Registro actualizado",
       });

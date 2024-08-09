@@ -1,0 +1,10 @@
+Post: http://localhost:8000/puntuaciones
+{
+  "id_mesero":"155",
+  "id_cliente":"60",
+  "amabilidad":"10",
+  "eficiencia":"5",
+  "presentacion":"2",
+  "conocimiento_menu":"10",
+  "tiempo_espera":"5"
+}

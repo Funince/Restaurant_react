@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -31,9 +31,9 @@ function convertConfig(data: ClassDictionary) {
   const newConfig:ChartConfig = {};
   const chardata = [
     { rasgo: "Amabilidad" },
-    { rasgo: "Presentacion" },
+    { rasgo: "Presentación" },
     { rasgo: "Eficiencia" },
-    { rasgo: "Conocimiento del Menu" },
+    { rasgo: "Conocimiento del Menú" },
     { rasgo: "Tiempo de espera" },
   ];
   if (Object.keys(data).length > 0) {
@@ -59,6 +59,7 @@ function convertConfig(data: ClassDictionary) {
 
 export function GraphRadial({ listRecept }) {
   const [dataConfig, data] = convertConfig(listRecept);
+
   return (
     <Card>
       <CardContent>

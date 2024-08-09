@@ -20,6 +20,12 @@ const MerseroModel = db.define("meseros", {
     type: DataTypes.CHAR(8),
     allowNull: false,
     unique: true,
+    validate: {
+      len: {
+        args: [8, 8],
+        msg: "El campo DNI debe tener exactamente 8 caracteres",
+      },
+    },
   },
 });
 

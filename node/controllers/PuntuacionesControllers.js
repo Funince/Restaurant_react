@@ -6,6 +6,7 @@ const extractPuntuacionData = (body) => {
     id_cliente,
     amabilidad,
     eficiencia,
+    presentacion,
     conocimiento_menu,
     tiempo_espera,
   } = body;
@@ -14,6 +15,7 @@ const extractPuntuacionData = (body) => {
     id_cliente,
     amabilidad,
     eficiencia,
+    presentacion,
     conocimiento_menu,
     tiempo_espera,
   };
@@ -41,7 +43,7 @@ export const getPuntuacion = async (req, res) => {
       },
     });
     res.json({
-     puntuacion,
+      puntuacion,
     });
   } catch (error) {
     res.json({
@@ -57,7 +59,7 @@ export const createPuntuacion = async (req, res) => {
     const puntuacion = await PuntuacionesModel.create(puntuacionData);
     if (puntuacion) {
       res.status(201).json({
-       puntuacion,
+        puntuacion,
       });
     } else {
       res.json({
@@ -76,14 +78,11 @@ export const updatePuntuacion = async (req, res) => {
   const { id } = req.params;
   const puntuacionData = extractPuntuacionData(req.body);
   try {
-    const puntuacion = await PuntuacionesModel.update(
-        puntuacionData,
-      {
-        where: {
-          id,
-        },
-      }
-    );
+    const puntuacion = await PuntuacionesModel.update(puntuacionData, {
+      where: {
+        id,
+      },
+    });
     if (puntuacion) {
       res.json({
         message: "Registro actualizado",
@@ -128,14 +127,9 @@ export const deletePuntuacion = async (req, res) => {
 
 export const getAverageScores = async (req, res) => {
   try {
-    const allPts = await db.query(
-      "SELECT * FROM PromediosPuntuacionesPorID",
-      {
-        type: db.QueryTypes.SELECT,
-      }
-    );
-    console.log("Ras:", allPts); // Log de depuración
-
+    const allPts = await db.query("SELECT * FROM PromediosPuntuacionesPorID", {
+      type: db.QueryTypes.SELECT,
+    });
     if (allPts.length > 0) {
       res.json({
         results: allPts,
@@ -145,20 +139,19 @@ export const getAverageScores = async (req, res) => {
         .status(404)
         .json({ message: "No se encontraron datos para calcular promedios" });
     }
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({
       message: "Error al obtener los promedios",
       error: error.message,
     });
   }
-}
+};
 
 export const getAverageScoresById = async (req, res) => {
   const { id } = req.params; // Obtener el id de los parámetros de la solicitud
 
   try {
-    const idSpecificPointData= await db.query(
+    const idSpecificPointData = await db.query(
       "SELECT * FROM PromediosPuntuacionesPorID WHERE id = :id",
       {
         replacements: { id: id },
@@ -167,7 +160,7 @@ export const getAverageScoresById = async (req, res) => {
     );
     if (idSpecificPointData) {
       res.json({
-         results: idSpecificPointData
+        results: idSpecificPointData,
       });
     } else {
       res
